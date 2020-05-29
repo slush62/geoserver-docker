@@ -4,7 +4,7 @@ MAINTAINER GeoNode Development Team
 #
 # Set GeoServer version and data directory
 #
-ENV GEOSERVER_VERSION=2.15.x
+ENV GEOSERVER_VERSION=2.16.x
 ENV GEOSERVER_DATA_DIR="/geoserver_data/data"
 
 #
@@ -75,6 +75,7 @@ COPY entrypoint.sh /usr/local/tomcat/tmp
 
 RUN apt-get update \
     && apt-get -y upgrade \
+    && apt-get install -y gdal-bin libgdal-java unzip \
     && apt-get install -y python python-pip python-dev \
     && chmod +x /usr/local/tomcat/tmp/set_geoserver_auth.sh \
     && chmod +x /usr/local/tomcat/tmp/setup_auth.sh \
@@ -83,6 +84,16 @@ RUN apt-get update \
     && pip install -r requirements.txt \
     && chmod +x /usr/local/tomcat/tmp/get_dockerhost_ip.py \
     && chmod +x /usr/local/tomcat/tmp/get_nginxhost_ip.py
+
+# Peraton extensions
+RUN wget --no-check-certificate https://build.geo-solutions.it/geonode/geoserver/latest/data-${GEOSERVER_VERSION}.zip \
+    && unzip -o -d /usr/local/tomcat/webapps/geoserver/ data-${GEOSERVER_VERSION}.zip \
+    && wget --no-check-certificate http://sourceforge.net/projects/geoserver/files/GeoServer/2.16.1/extensions/geoserver-2.16.1-gdal-plugin.zip \
+    && unzip -d /usr/local/tomcat/webapps/geoserver/WEB-INF/lib/ geoserver-2.16.1-gdal-plugin.zip \
+    && wget --no-check-certificate https://demo.geo-solutions.it/share/github/imageio-ext/releases/1.1.X/1.1.10/native/gdal/gdal-data.zip \
+    && mkdir -p /usr/share/gdal/2.2 \
+    && unzip -o -d /usr/share/gdal/2.2 gdal-data.zip \ 
+
 
 ENV JAVA_OPTS="-Djava.awt.headless=true -XX:MaxPermSize=512m -XX:PermSize=256m -Xms512m -Xmx2048m -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:ParallelGCThreads=4 -Dfile.encoding=UTF8 -Duser.timezone=GMT -Djavax.servlet.request.encoding=UTF-8 -Djavax.servlet.response.encoding=UTF-8 -Duser.timezone=GMT -Dorg.geotools.shapefile.datetime=true"
 
