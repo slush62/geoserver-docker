@@ -89,14 +89,14 @@ RUN apt-get update \
 RUN wget --no-check-certificate https://build.geo-solutions.it/geonode/geoserver/latest/data-${GEOSERVER_VERSION}.zip \
     && unzip -o -d /usr/local/tomcat/webapps/geoserver/ data-${GEOSERVER_VERSION}.zip \
     && wget --no-check-certificate https://build.geoserver.org/geoserver/2.16.x/ext-latest/geoserver-2.16-SNAPSHOT-gdal-plugin.zip \
-    && unzip -d /usr/local/tomcat/webapps/geoserver/WEB-INF/lib/ geoserver-2.16-SNAPSHOT-gdal-plugin.zip \
+    && unzip -o -d /usr/local/tomcat/webapps/geoserver/WEB-INF/lib/ geoserver-2.16-SNAPSHOT-gdal-plugin.zip \
     && wget --no-check-certificate https://demo.geo-solutions.it/share/github/imageio-ext/releases/1.1.X/1.1.10/native/gdal/gdal-data.zip \
     && mkdir -p /usr/share/gdal/2.2 \
     && unzip -o -d /usr/share/gdal/2.2 gdal-data.zip \ 
     && wget https://build.geoserver.org/geoserver/2.16.x/ext-latest/geoserver-2.16-SNAPSHOT-netcdf-plugin.zip \
     && unzip -o -d /usr/local/tomcat/webapps/geoserver/WEB-INF/lib/ geoserver-2.16-SNAPSHOT-netcdf-plugin.zip \
     && wget https://build.geoserver.org/geoserver/2.16.x/ext-latest/geoserver-2.16-SNAPSHOT-netcdf-out-plugin.zip \
-    &&  unzip -o -d /usr/local/tomcat/webapps/geoserver/WEB-INF/lib/ /geoserver-2.16-SNAPSHOT-netcdf-out-plugin.zip \
+    &&  unzip -o -d /usr/local/tomcat/webapps/geoserver/WEB-INF/lib/ geoserver-2.16-SNAPSHOT-netcdf-out-plugin.zip \
     && wget https://build.geoserver.org/geoserver/2.16.x/ext-latest/geoserver-2.16-SNAPSHOT-grib-plugin.zip \
     && unzip -o -d /usr/local/tomcat/webapps/geoserver/WEB-INF/lib/ geoserver-2.16-SNAPSHOT-grib-plugin.zip \
     && wget https://build.geoserver.org/geoserver/2.16.x/ext-latest/geoserver-2.16-SNAPSHOT-libjpeg-turbo-plugin.zip \
