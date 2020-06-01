@@ -59,6 +59,27 @@ else
 
 fi
 
+if ! [ -f ${GEOSERVER_DATA_DIR}/security/role/default/config.xml ]
+then
+    if [ -z ${GEOSERVER_DATA_ROOT} ]
+    then
+        echo "Define GEOSERVER_DATA_ROOT (parent of) GEOSERVER_DATA_DIR"
+    fi
+    echo "Need to get GeoServer data"
+    if [ -f /usr/local/tomcat/tmp/data-2.16.x.zip ]
+    then
+        echo "unzip /usr/local/tomcat/tmp/data-2.16.x.zip"
+        unzip -o -d ${GEOSERVER_DATA_ROOT} /usr/local/tomcat/tmp/data-2.16.x.zip
+    else
+        echo "wget https://build.geo-solutions.it/geonode/geoserver/latest/data-2.16.x.zip"
+        wget --no-check-certificate https://build.geo-solutions.it/geonode/geoserver/latest/data-2.16.x.zip
+        echo "unzip /usr/local/tomcat/tmp/data-2.16.x.zip"
+        unzip -o -d ${GEOSERVER_DATA_ROOT} data-2.16.x.zip
+    fi
+else
+    echo "Found GeoServer data"
+fi
+
 # set basic tagname
 TAGNAME=( "baseUrl" )
 
