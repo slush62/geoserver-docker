@@ -86,9 +86,9 @@ RUN apt-get update \
     && chmod +x /usr/local/tomcat/tmp/get_nginxhost_ip.py
 
 # Peraton extensions
-RUN wget --no-check-certificate https://build.geo-solutions.it/geonode/geoserver/latest/geonode-geoserver-ext-web-app-${GEOSERVER_VERSION}-geoserver-plugin.zip \
-    && unzip -o -d /usr/local/tomcat/webapps/geoserver/WEB-INF/lib/ geonode-geoserver-ext-web-app-${GEOSERVER_VERSION}-geoserver-plugin.zip \
-    && wget --no-check-certificate https://build.geoserver.org/geoserver/2.16.x/ext-latest/geoserver-2.16-SNAPSHOT-gdal-plugin.zip \
+# RUN wget --no-check-certificate https://build.geo-solutions.it/geonode/geoserver/latest/geonode-geoserver-ext-web-app-${GEOSERVER_VERSION}-geoserver-plugin.zip \
+#     && unzip -o -d /usr/local/tomcat/webapps/geoserver/WEB-INF/lib/ geonode-geoserver-ext-web-app-${GEOSERVER_VERSION}-geoserver-plugin.zip \
+RUN wget --no-check-certificate https://build.geoserver.org/geoserver/2.16.x/ext-latest/geoserver-2.16-SNAPSHOT-gdal-plugin.zip \
     && unzip -o -d /usr/local/tomcat/webapps/geoserver/WEB-INF/lib/ geoserver-2.16-SNAPSHOT-gdal-plugin.zip \
     && wget --no-check-certificate https://demo.geo-solutions.it/share/github/imageio-ext/releases/1.1.X/1.1.10/native/gdal/gdal-data.zip \
     && mkdir -p /usr/share/gdal/2.2 \
